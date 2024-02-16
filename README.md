@@ -36,7 +36,3 @@ The script supports the following record types:
 ## Note
 
 The script will remove carriage return characters from itself before running. This is to ensure compatibility with different operating systems.
-
-## License
-
-This script is released under the MIT License.
