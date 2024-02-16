@@ -1,16 +1,19 @@
 #!/bin/bash
 
+# Remove carriage return characters
+tr -d '\r' < "$0" > temp.sh && mv temp.sh "$0"
+
 # Read the domain name
 echo "Enter the domain name:"
-read domain_name
+read -r domain_name
 
 # Convert the records
 while IFS= read -r line
 do
     # Extract the record details
-    record_type=$(echo $line | cut -c1)
-    record_domain=$(echo $line | cut -d':' -f1 | sed 's/^.//')
-    record_value=$(echo $line | cut -d':' -f2)
+    record_type=$(echo "$line" | cut -c1)
+    record_domain=$(echo "$line" | cut -d':' -f1 | sed 's/^.//')
+    record_value=$(echo "$line" | cut -d':' -f2)
 
     # Check if the record is for the inputted domain
     if [[ $record_domain == *"$domain_name"* ]]; then
