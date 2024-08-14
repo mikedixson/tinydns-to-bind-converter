@@ -10,10 +10,10 @@ read -r domain_name
 # Convert the records
 while IFS= read -r line
 do
-    # Extract the record details
-    record_type=$(echo "$line" | cut -c1)
-    record_domain=$(echo "$line" | cut -d':' -f1 | sed 's/^.//')
-    record_value=$(echo "$line" | cut -d':' -f2)
+    # Extract the record details using awk
+    record_type=$(echo "$line" | awk -F':' '{print substr($1, 1, 1)}')
+    record_domain=$(echo "$line" | awk -F':' '{print substr($1, 2)}')
+    record_value=$(echo "$line" | awk -F':' '{print $2}')
 
     # Check if the record is for the inputted domain
     if [[ $record_domain == *"$domain_name"* ]]; then
