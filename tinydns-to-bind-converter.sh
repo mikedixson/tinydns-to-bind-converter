@@ -39,6 +39,16 @@ do
             "C")
                 echo "$record_domain. 300 CNAME $record_value" >> route53_records.txt
                 ;;
+            "'")
+                if [[ $record_value == v=spf* ]]; then
+                    echo "$record_domain. 300 SPF \"$record_value\"" >> route53_records.txt
+                else
+                    echo "$record_domain. 300 TXT \"$record_value\"" >> route53_records.txt
+                fi
+                ;;
+            ":")
+                echo "$record_domain. 300 SPF \"$record_value\"" >> route53_records.txt
+                ;;
         esac
     fi
 done < "data"
